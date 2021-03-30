@@ -1,0 +1,9 @@
+body {
+  background-image: url('https://vistapointe.net/images/university-of-greenwich-2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.login-form {
+  color: white !important;
+  z-index: 1;
+}

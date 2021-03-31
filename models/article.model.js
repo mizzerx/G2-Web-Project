@@ -2,6 +2,14 @@ const { Schema, model, Types } = require('mongoose');
 
 const ArticleSchema = new Schema(
   {
+    title: {
+      type: String,
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
     uploadedWord: [
       {
         type: Types.ObjectId,
@@ -9,16 +17,16 @@ const ArticleSchema = new Schema(
       },
     ],
     topic: {
-      type: Types.ObjectId,
-      ref: 'topics',
+      type: String,
+      required: true,
     },
     owner: {
       type: Types.ObjectId,
       ref: 'users',
     },
     faculty: {
-      type: Types.ObjectId,
-      ref: 'faculty',
+      type: String,
+      required: true,
     },
     status: {
       type: String,

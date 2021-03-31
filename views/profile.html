@@ -104,6 +104,7 @@
           </div>
           <br /><br /><br />
           <div class="h1">Your post</div>
+          {{#each user.uploadedArticles}}
           <div
             style="
               width: 100%;
@@ -124,66 +125,22 @@
             <!-- Image for article-->
             <div style="margin: 20px 20px">
               <div style="margin-bottom: 2%; font-size: 2rem">
-                Title: First time hang out with my club.
+                Title: {{ title }}
               </div>
               <div style="margin-bottom: 2%; font-size: 2rem">
-                Content: Nothing
+                Content: {{ content }}
               </div>
-              <div style="margin-bottom: 2%; font-size: 2rem">Topic: Club</div>
+              <div style="margin-bottom: 2%; font-size: 2rem">
+                Status: {{ status }}
+              </div>
+              <div style="margin-bottom: 2%; font-size: 2rem">
+                Topic: {{ topic }}
+              </div>
               <button type="button" class="btn btn-warning">Edit</button>
               <button type="button" class="btn btn-danger">Delete</button>
             </div>
           </div>
-          <div
-            style="
-              width: 100%;
-              height: 100%;
-              padding: 10px;
-              border: 5px solid gray;
-              display: flex;
-              border-radius: 5px 25px;
-              margin-bottom: 5rem;
-            "
-          >
-            <div style="width: 200px">
-              <img
-                src="https://scontent.fhan3-1.fna.fbcdn.net/v/t1.0-9/76616479_994883480878044_5651129638055837696_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=174925&_nc_ohc=i-HECu0zCzkAX_KlYBV&_nc_oc=AQkRJ4O6L5-VfeLALKnAfFqfjGPt9t2dH4kw1Wtp5YayMWCjoJEl5Y6jAwEe74PW1_g&_nc_ht=scontent.fhan3-1.fna&oh=411356fdfa2a794b77c61a21f22c49f2&oe=60816295"
-                alt=""
-              />
-            </div>
-            <div style="margin: 20px 20px">
-              <div style="margin-bottom: 2%; font-size: 2rem">Title</div>
-              <div style="margin-bottom: 2%; font-size: 2rem">Content:</div>
-              <div style="margin-bottom: 2%; font-size: 2rem">Topic:</div>
-              <button type="button" class="btn btn-warning">Edit</button>
-              <button type="button" class="btn btn-danger">Delete</button>
-            </div>
-          </div>
-          <div
-            style="
-              width: 100%;
-              height: 100%;
-              padding: 10px;
-              border: 5px solid gray;
-              display: flex;
-              border-radius: 5px 25px;
-              margin-bottom: 5rem;
-            "
-          >
-            <div style="width: 200px">
-              <img
-                src="https://scontent.fhan3-3.fna.fbcdn.net/v/t1.0-9/15822859_354776644888734_7571522196951927156_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=174925&_nc_ohc=nse1eIxC2W8AX-eTdFO&_nc_ht=scontent.fhan3-3.fna&oh=e176cf31a5fa972254ebd7a273378751&oe=6083BF02"
-                alt=""
-              />
-            </div>
-            <div style="margin: 20px 20px">
-              <div style="margin-bottom: 2%; font-size: 2rem">Title</div>
-              <div style="margin-bottom: 2%; font-size: 2rem">Content:</div>
-              <div style="margin-bottom: 2%; font-size: 2rem">Topic:</div>
-              <button type="button" class="btn btn-warning">Edit</button>
-              <button type="button" class="btn btn-danger">Delete</button>
-            </div>
-          </div>
+          {{/each}}
         </div>
       </div>
 

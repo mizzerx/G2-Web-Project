@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const { ensureAuth } = require('../middlewares/ensureAuth');
 const User = require('../models/user.model');
+const Article = require('../models/article.model');
 
 const router = Router();
 
@@ -14,14 +15,15 @@ router.get('/student/profile', ensureAuth('STUDENT'), async (req, res) => {
   const findUser = await User.findById(user._id)
     .populate('uploadedArticles')
     .populate('uploadedImages')
-    .populate('faculty')
     .lean();
+
+  console.log(findUser);
   return res.render('profile', { user: findUser });
 });
 
-router.get('/admin', ensureAuth('ADMIN'), async (req, res) => {
+router.get('/admin', ensureAuth('ADMIN'), async (req, res, next) => {
   try {
-    const users = await User.find().limit(100).populate('faculty').lean();
+    const users = await User.find().limit(100).lean();
 
     console.log(users);
 

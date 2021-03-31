@@ -11,21 +11,24 @@ const createUser = async (req, res, next) => {
   const { email, username, password, role, faculty_name } = req.body;
 
   try {
-    const faculty = await Faculty.findOne({ name: faculty_name });
-
-    if (!faculty) throw new Error('Faculty is not existed');
-
     const newUser = new User({
       email,
       username,
       password,
       role,
-      faculty: faculty._id,
+      faculty: faculty_name,
     });
 
-    const user = await newUser.save();
+    await newUser.save();
 
-    if (!user) throw new Error('Cannot create user');
+    const faculty = await Faculty.findOne({ name: faculty_name });
+    const users = [...faculty.users, newUser._id];
+
+    await Faculty.findOneAndUpdate(
+      { name: faculty_name },
+      { $set: { users } },
+      { new: true }
+    );
 
     return res.status(201).redirect('/admin');
   } catch (error) {

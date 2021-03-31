@@ -2,6 +2,7 @@ const Image = require('../models/image.model');
 const Topic = require('../models/topic.model');
 const Article = require('../models/article.model');
 const User = require('../models/user.model');
+const Faculty = require('../models/faculty.model');
 const { uploadImagesFile } = require('./upload.controller');
 
 /**
@@ -24,26 +25,39 @@ const createArticle = async (req, res, next) => {
     uploadedImages.push(image._id);
   });
 
+  const newArticle = new Article({
+    title,
+    content,
+    topic: topic_name,
+    owner: user._id,
+    faculty: user.faculty,
+  });
+  await newArticle.save();
+
   const topic = await Topic.findOne({ name: topic_name });
+  const topicArticles = [...topic.articles, newArticle._id];
+  await Topic.findOneAndUpdate(
+    { name: topic_name },
+    { $set: { articles: topicArticles } },
+    { new: true }
+  );
 
-  if (topic) {
-    const newArticle = new Article({
-      title,
-      content,
-      topic: topic._id,
-      owner: user._id,
-      faculty: user.faculty,
-    });
-    await newArticle.save();
-    const uploadedArticles = [...user.uploadedArticles, newArticle._id];
-    const updateUser = await User.findByIdAndUpdate(
-      user._id,
-      { $set: { uploadedArticles, uploadedImages } },
-      { new: true }
-    );
+  const faculty = await Faculty.findOne({ name: user.faculty });
+  const facultyArticles = [...faculty.articles, newArticle._id];
+  await Faculty.findOneAndUpdate(
+    { name: user.faculty },
+    { $set: { articles: facultyArticles } },
+    { new: true }
+  );
 
-    console.log(updateUser);
-  }
+  const uploadedArticles = [...user.uploadedArticles, newArticle._id];
+  const updateUser = await User.findByIdAndUpdate(
+    user._id,
+    { $set: { uploadedArticles, uploadedImages } },
+    { new: true }
+  );
+
+  return res.redirect('/student/profile');
 };
 
 module.exports = { createArticle };

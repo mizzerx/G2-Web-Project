@@ -21,8 +21,8 @@ const UserSchema = new Schema(
       default: 'STUDENT',
     },
     faculty: {
-      type: Types.ObjectId,
-      ref: 'faculties',
+      type: String,
+      required: true,
     },
     profile: {
       type: Types.ObjectId,

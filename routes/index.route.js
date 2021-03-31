@@ -32,4 +32,8 @@ router.get('/manger', ensureAuth('MANAGER'), (req, res) => {
   return res.render('manager');
 });
 
+router.get('/student/article/create', (req, res) => {
+  return res.render('articles/create');
+});
+
 module.exports = router;

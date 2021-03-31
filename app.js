@@ -1,5 +1,4 @@
 const express = require('express');
-const dotenv = require('dotenv');
 const logger = require('morgan');
 const passport = require('passport');
 const exphbs = require('express-handlebars');
@@ -12,9 +11,10 @@ const indexRouter = require('./routes/index.route');
 const authRouter = require('./routes/auth.route');
 const userRouter = require('./routes/user.route');
 const facultyRouter = require('./routes/faculty.route');
+const articleRouter = require('./routes/article.route');
+const topicRouter = require('./routes/topic.route');
 
 global.__dirname = path.resolve('./');
-dotenv.config();
 
 const app = express();
 
@@ -52,6 +52,8 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', userRouter);
 app.use('/faculties', facultyRouter);
+app.use('/articles', articleRouter);
+app.use('/topics', topicRouter);
 
 /** Catch 404 Error and forward it to error handler */
 app.use((req, res, next) => {

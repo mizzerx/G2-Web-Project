@@ -1,8 +1,9 @@
 const { connect } = require('mongoose');
+const { dev } = require('../env.json');
 
 module.exports = {
   createConnection: async () => {
-    const uri = process.env.MONGO_STRING;
+    const uri = dev.MONGO_STRING;
 
     try {
       const conn = await connect(uri, {

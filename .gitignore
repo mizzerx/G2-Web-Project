@@ -1,4 +1,8 @@
 .idea/
 node_modules/
 *.lock
-uploads/*
+uploads/*.jpg
+uploads/*.png
+uploads/*.jepg
+uploads/*.pdf
+uploads/*.docx

@@ -8,8 +8,15 @@ router.get('/', (req, res) => {
   return res.render('home');
 });
 
-router.get('/student/profile', ensureAuth('STUDENT'), (req, res) => {
-  return res.render('profile');
+router.get('/student/profile', ensureAuth('STUDENT'), async (req, res) => {
+  const { user } = req.session.passport;
+
+  const findUser = await User.findById(user._id)
+    .populate('uploadedArticles')
+    .populate('uploadedImages')
+    .populate('faculty')
+    .lean();
+  return res.render('profile', { user: findUser });
 });
 
 router.get('/admin', ensureAuth('ADMIN'), async (req, res) => {

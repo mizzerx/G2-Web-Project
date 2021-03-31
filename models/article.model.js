@@ -34,6 +34,9 @@ const ArticleSchema = new Schema(
       enum: ['PENDING', 'ACCEPTED', 'REJECTED'],
       default: 'PENDING',
     },
+    comment: {
+      type: String,
+    },
   },
   {
     timestamps: true,

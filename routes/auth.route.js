@@ -20,7 +20,7 @@ router.post(
       case 'STUDENT':
         res.redirect('/student/profile');
         break;
-      case 'COORDINATOOR':
+      case 'COORDINATOR':
         res.redirect('/coordinator');
         break;
       case 'MANAGER':

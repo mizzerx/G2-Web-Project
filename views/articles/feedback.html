@@ -1,0 +1,110 @@
+<div id="feedback">
+  <div style="width: 3%; position: relative; left: 3%; margin-top: 0.5rem">
+    <a href="/coordinator"
+      ><img
+        src="https://cdn0.iconfinder.com/data/icons/controls-add-on/48/v-40-512.png"
+        alt=""
+    /></a>
+  </div>
+
+  <h2 class="text-center text-4xl p-3">
+    Make Feedback <i class="fas fa-book"></i>
+  </h2>
+  <div class="container p-5">
+    <div class="p-3 border-5">
+      <br />
+      <div class="">
+        <img
+          src="https://devtalk.blender.org/uploads/default/original/2X/c/cbd0b1a6345a44b58dda0f6a355eb39ce4e8a56a.png"
+          alt=""
+          class="img-circle float-left w-20"
+        />
+      </div>
+      <div class="">
+        <a href="#" class="bold">{{user.username}}</a>
+        <p id="time" class="small">{{user.createdAt}}</p>
+      </div>
+      <br />
+      <div class="content">
+        <p id="title" class="text-3xl">{{article.title}}</p>
+        <p id="content" class="text-2xl">{{article.content}}</p>
+      </div>
+      <br /><br />
+      <button
+        class="btn btn-primary transform hover:scale-110 motion-reduce:transform-none p-1 Feedback"
+      >
+        Make/Change Feedback
+      </button>
+      <form
+        class="GetFeedback pt-5"
+        method="POST"
+        action="/articles/feedback"
+        enctype="application/x-www-form-urlencoded"
+      >
+        <label for="" class="form-label">Feedback</label>
+        <textarea
+          class="form-control"
+          id="feedback"
+          rows="5"
+          placeholder="Write Your Feedback Here"
+          name="comment"
+        >
+        {{article.comment}}
+        </textarea>
+        <!-- <input type="file" class="pt-3" multiple="multiple" /> -->
+        <br /><br />
+        <input type="hidden" name="status" id="status" />
+        <input type="hidden" name="id" value="{{article._id}}" />
+        {{#if article.comment}}
+        <button type="submit" class="btn btn-primary" id="reject">
+          Update
+        </button>
+        {{else}}
+        <button type="button" class="btn btn-success" id="accept">
+          Accept
+        </button>
+        <button type="button" class="btn btn-danger" id="reject">Reject</button>
+        {{/if}}
+      </form>
+    </div>
+  </div>
+</div>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+/>
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+  crossorigin="anonymous"
+/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link
+  href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+  rel="stylesheet"
+/>
+<style>
+  .GetFeedback {
+    display: none;
+  }
+</style>
+
+<script>
+  // var time = new Date().toLocaleString();
+  // document.getElementById('time').innerHTML = time;
+  $('.Feedback').click(function () {
+    $('.GetFeedback').toggle();
+  });
+  $('#accept').click(function () {
+    $('#status').val('ACCEPTED');
+    $('.GetFeedback').submit();
+  });
+  $('#reject').click(function () {
+    $('#status').val('REJECTED');
+    $('.GetFeedback').submit();
+  });
+</script>

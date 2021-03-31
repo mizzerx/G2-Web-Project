@@ -3,6 +3,8 @@ const { upload } = require('../configs/multer.config');
 const {
   createArticle,
   removeAricle,
+  updateArticle,
+  makeArticleFeedback,
 } = require('../controllers/article.controller');
 const { ensureAuth } = require('../middlewares/ensureAuth');
 
@@ -15,6 +17,10 @@ router.post(
   createArticle
 );
 
+router.post('/update', ensureAuth('STUDENT'), updateArticle);
+
 router.post('/delete', ensureAuth('STUDENT'), removeAricle);
+
+router.post('/feedback', ensureAuth('COORDINATOR'), makeArticleFeedback);
 
 module.exports = router;

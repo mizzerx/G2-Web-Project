@@ -33,8 +33,12 @@ router.get('/admin', ensureAuth('ADMIN'), async (req, res, next) => {
   }
 });
 
-router.get('/coordinator', ensureAuth('COORDINATOR'), (req, res) => {
-  return res.render('coordinator');
+router.get('/coordinator', ensureAuth('COORDINATOR'), async (req, res) => {
+  const { user } = req.session.passport;
+  const article = await Article.find({ faculty: user.faculty })
+    .limit(100)
+    .lean();
+  return res.render('coordinator', { article, faculty: user.faculty });
 });
 
 router.get('/manger', ensureAuth('MANAGER'), (req, res) => {
@@ -44,5 +48,29 @@ router.get('/manger', ensureAuth('MANAGER'), (req, res) => {
 router.get('/student/article/create', (req, res) => {
   return res.render('articles/create');
 });
+
+router.get('/student/article/update', async (req, res) => {
+  const { id } = req.query;
+
+  const article = await Article.findById(id).lean();
+
+  return res.render('articles/update', { article });
+});
+
+router.get(
+  '/article/feedback',
+  ensureAuth('COORDINATOR'),
+  async (req, res, next) => {
+    const { usr_id, art_id } = req.query;
+
+    const user = await User.findById(usr_id).lean();
+    const article = await Article.findById(art_id).lean();
+
+    return res.render('articles/feedback', {
+      user,
+      article,
+    });
+  }
+);
 
 module.exports = router;

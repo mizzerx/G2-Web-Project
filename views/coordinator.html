@@ -10,6 +10,7 @@
       <li class="has-submenu text-capitalize">
         <a href="article.html">Article</a>
       </li>
+      <li><a href="/auth/login">Logout</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -22,7 +23,7 @@
   <header id="site-header" class="not-stuck">
     <div class="container">
       <div class="row">
-        <div>Welcome, ....</div>
+        <div>Welcome, {{faculty}} Coordinator</div>
         <div id="menu-burger" class="pull-right not-stuck">
           <div id="menu-bar">
             <span class="icon-bar top"></span>
@@ -68,56 +69,46 @@
 		============================================= -->
   <div style="margin-top: 20%">
     <table
-      style="width: 80%; margin: 0 auto; min-width: 150px; max-width: 750px"
+      style="width: 80%; margin: 0 auto; min-width: 150px; max-width: 1000px"
       class="table table-hover"
     >
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Name</th>
           <th scope="col">Title</th>
-          <th scope="col">Deadline</th>
-          <th scope="col">Faculty</th>
+          <th scope="col">Content</th>
+          <th scope="col">Status</th>
+          <th scope="col">Created Date</th>
+          <th scope="col">Comment</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
+        {{#each article}}
         <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
+          <th scope="row">{{@index}}</th>
+          <td>{{title}}</td>
+          <td>{{content}}</td>
+          <td>{{status}}</td>
+          <td>{{createdAt}}</td>
+          <td>{{comment}}</td>
           <td>
-            <a href="commentArticle.html"
-              ><button type="button" class="btn btn-warning">Comment</button></a
+            {{#if comment}}
+            <a href="/article/feedback?usr_id={{owner}}&art_id={{_id}}"
+              ><button type="button" class="btn btn-success">
+                Change Feedback
+              </button></a
             >
+            {{else}}
+            <a href="/article/feedback?usr_id={{owner}}&art_id={{_id}}"
+              ><button type="button" class="btn btn-warning">
+                Make feedback
+              </button></a
+            >
+            {{/if}}
           </td>
         </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>@mdo</td>
-          <td>
-            <a href="commentArticle.html"
-              ><button type="button" class="btn btn-warning">Comment</button></a
-            >
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry the Bird</td>
-          <td>title</td>
-          <td>@twitter</td>
-          <td>@mdo</td>
-          <td>
-            <a href="commentArticle.html"
-              ><button type="button" class="btn btn-warning">Comment</button></a
-            >
-          </td>
-        </tr>
+        {{/each}}
       </tbody>
     </table>
   </div>

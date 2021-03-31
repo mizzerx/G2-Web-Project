@@ -9,6 +9,7 @@
     <li class="has-submenu text-capitalize">
       <a href="article.html">Article</a>
     </li>
+    <li><a href="/auth/login">Logout</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
 </nav>
@@ -134,9 +135,13 @@
               <div style="margin-bottom: 2%; font-size: 2rem">
                 Topic: {{ topic }}
               </div>
-              <form action="" method="post">
-                <button type="button" class="btn btn-warning">Edit</button>
-              </form>
+              <button
+                type="button"
+                class="btn btn-warning"
+                onclick="window.location.href='/student/article/update?id={{_id}}'"
+              >
+                Edit
+              </button>
               <form
                 action="/articles/delete"
                 method="post"

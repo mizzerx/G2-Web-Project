@@ -106,4 +106,33 @@ const removeAricle = async (req, res, next) => {
   return res.redirect('/student/profile');
 };
 
-module.exports = { createArticle, removeAricle };
+const updateArticle = async (req, res, next) => {
+  const { title, content, id } = req.body;
+
+  await Article.findByIdAndUpdate(
+    id,
+    { $set: { title, content } },
+    { new: true }
+  );
+
+  return res.redirect('/student/profile');
+};
+
+const makeArticleFeedback = async (req, res, next) => {
+  const { id, comment, status } = req.body;
+
+  await Article.findByIdAndUpdate(
+    id,
+    { $set: { comment: comment.trim(), status } },
+    { new: true }
+  );
+
+  return res.redirect('/coordinator');
+};
+
+module.exports = {
+  createArticle,
+  removeAricle,
+  updateArticle,
+  makeArticleFeedback,
+};

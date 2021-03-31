@@ -5,8 +5,12 @@ const Article = require('../models/article.model');
 
 const router = Router();
 
-router.get('/', (req, res) => {
-  return res.render('home');
+router.get('/', async (req, res) => {
+  const articles = await Article.find({ status: 'ACCEPTED' })
+    .limit(100)
+    .populate('owner')
+    .lean();
+  return res.render('home', { article });
 });
 
 router.get('/student/profile', ensureAuth('STUDENT'), async (req, res) => {

@@ -22,7 +22,6 @@ const UserSchema = new Schema(
     },
     faculty: {
       type: String,
-      required: true,
     },
     profile: {
       type: Types.ObjectId,

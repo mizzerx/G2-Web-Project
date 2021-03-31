@@ -45,6 +45,8 @@ const createUser = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   const { id } = req.body;
 
+  if (id === '606440bd43485242fc9684b6')
+    return res.status(200).redirect('/admin');
   try {
     const user = await User.findByIdAndDelete(id);
 

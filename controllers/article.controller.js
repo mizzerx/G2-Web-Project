@@ -25,12 +25,15 @@ const createArticle = async (req, res, next) => {
     uploadedImages.push(image._id);
   });
 
+  const image = await Image.findOne({ _id: uploadedImages[0] });
+
   const newArticle = new Article({
     title,
     content,
     topic: topic_name,
     owner: user._id,
     faculty: user.faculty,
+    articleImage: image.cloud_url,
   });
   await newArticle.save();
 
@@ -51,7 +54,7 @@ const createArticle = async (req, res, next) => {
   );
 
   const uploadedArticles = [...user.uploadedArticles, newArticle._id];
-  const updateUser = await User.findByIdAndUpdate(
+  await User.findByIdAndUpdate(
     user._id,
     { $set: { uploadedArticles, uploadedImages } },
     { new: true }
@@ -60,4 +63,47 @@ const createArticle = async (req, res, next) => {
   return res.redirect('/student/profile');
 };
 
-module.exports = { createArticle };
+const removeAricle = async (req, res, next) => {
+  const { id, topic_name } = req.body;
+  const { user } = req.session.passport;
+
+  const userArticles = [...user.uploadedArticles];
+  const i = userArticles.indexOf(id);
+  if (i > -1) userArticles.splice(i, 1);
+
+  await User.findByIdAndUpdate(
+    user._id,
+    {
+      $set: { uploadedArticles: userArticles },
+    },
+    { new: true }
+  );
+
+  const faculty = await Faculty.findOne({ name: user.faculty });
+  const facultyArticles = [...faculty.articles];
+  const j = facultyArticles.indexOf(id);
+  if (j > -1) facultyArticles.splice(j, 1);
+  await Faculty.findByIdAndUpdate(
+    faculty._id,
+    {
+      $set: { articles: facultyArticles },
+    },
+    { new: true }
+  );
+
+  const topic = await Topic.findOne({ name: topic_name });
+  const topicArticles = [...topic.articles];
+  const k = topicArticles.indexOf(id);
+  if (k > -1) topicArticles.splice(k, 1);
+  await Topic.findByIdAndUpdate(
+    topic._id,
+    { $set: { articles: topicArticles } },
+    { new: true }
+  );
+
+  await Article.findByIdAndDelete(id);
+
+  return res.redirect('/student/profile');
+};
+
+module.exports = { createArticle, removeAricle };

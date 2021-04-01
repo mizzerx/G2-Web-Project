@@ -1,4 +1,6 @@
+const Article = require('../models/article.model');
 const Faculty = require('../models/faculty.model');
+const Topic = require('../models/topic.model');
 const User = require('../models/user.model');
 
 /**
@@ -11,22 +13,17 @@ const createUser = async (req, res, next) => {
   const { email, username, password, role, faculty_name } = req.body;
 
   try {
-    const newUser = new User({
+    const newUser = await new User({
       email,
       username,
       password,
       role,
       faculty: faculty_name || '',
-    });
-
-    await newUser.save();
-
-    const faculty = await Faculty.findOne({ name: faculty_name });
-    const users = [...faculty.users, newUser._id];
+    }).save();
 
     await Faculty.findOneAndUpdate(
       { name: faculty_name },
-      { $set: { users } },
+      { $push: { users: newUser._id } },
       { new: true }
     );
 
@@ -48,9 +45,31 @@ const deleteUser = async (req, res, next) => {
   if (id === '606440bd43485242fc9684b6')
     return res.status(200).redirect('/admin');
   try {
-    const user = await User.findByIdAndDelete(id);
+    await Faculty.findOneAndUpdate(
+      { _id: id },
+      { $pull: { users: { $in: id } } },
+      { new: true }
+    );
 
-    if (!user) throw new Error('User not found');
+    const user = await User.findOne({ _id: id }).populate('uploadedArticles');
+    const articles = [...user.uploadedArticles];
+    articles.map(async (val) => {
+      await Topic.findOneAndUpdate(
+        { name: val.topic },
+        { $pull: { articles: { $in: val._id } } },
+        { new: true }
+      );
+
+      await Faculty.findOneAndUpdate(
+        { name: val.faculty },
+        { $pull: { articles: { $in: val_id } } },
+        { new: true }
+      );
+
+      val.remove();
+    });
+
+    await user.remove();
 
     return res.status(200).redirect('/admin');
   } catch (error) {

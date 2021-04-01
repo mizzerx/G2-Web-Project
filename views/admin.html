@@ -82,7 +82,6 @@
           <th scope="col">Mail</th>
           <th scope="col">Role</th>
           <th scope="col">Faculty</th>
-          <th scope="col">Action</th>
         </tr>
       </thead>
       {{#each users}}
@@ -95,14 +94,28 @@
           <td>{{role}}</td>
           <td>{{faculty}}</td>
           <td>
-            <button type="button" class="btn btn-warning">Edit</button>
+            <button
+              type="button"
+              class="btn btn-warning"
+              style="min-width: 100px"
+            >
+              Edit
+            </button>
+          </td>
+          <td>
             <form
               action="/users/delete"
               method="post"
               enctype="application/x-www-form-urlencoded"
             >
               <input type="hidden" name="id" value="{{_id}}" />
-              <button type="submit" class="btn btn-danger">Delete</button>
+              <button
+                type="submit"
+                class="btn btn-danger"
+                style="min-width: 100px"
+              >
+                Delete
+              </button>
             </form>
           </td>
         </tr>

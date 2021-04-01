@@ -105,7 +105,25 @@
             </div>
           </div>
           <br /><br /><br />
-          <div class="h1">Your post</div>
+          <div
+            style="
+              display: flex;
+              flex: 1;
+              flex-direction: row;
+              justify-content: space-between;
+            "
+          >
+            <p class="h1">Yours Post</p>
+            <button
+              onclick="window.location.href='/student/article/create'"
+              target="_blank"
+              class="btn btn-success text-center"
+              style="max-height: 40px; margin: 20px 0 10px"
+            >
+              Create a new article
+            </button>
+          </div>
+          <hr />
           {{#each user.uploadedArticles}}
           <div
             style="
@@ -118,9 +136,9 @@
               margin-bottom: 5rem;
             "
           >
-            <div style="width: 200px">
+            <!-- <div style="width: 200px">
               <img src="{{articleImage}}" alt="" />
-            </div>
+            </div> -->
             <!-- Image for article-->
             <div style="margin: 20px 20px">
               <div style="margin-bottom: 2%; font-size: 2rem">
@@ -135,26 +153,49 @@
               <div style="margin-bottom: 2%; font-size: 2rem">
                 Topic: {{ topic }}
               </div>
-              <button
-                type="button"
-                class="btn btn-warning"
-                onclick="window.location.href='/student/article/update?id={{_id}}'"
+              <div
+                style="
+                  display: flex;
+                  flex: 1;
+                  flex-direction: row;
+                  margin-top: 2rem;
+                "
               >
-                Edit
-              </button>
-              <form
-                action="/articles/delete"
-                method="post"
-                enctype="application/x-www-form-urlencoded"
-              >
-                <input type="hidden" name="id" value="{{_id}}" />
-                <input type="hidden" name="topic_name" value="{{topic}}" />
-                <button type="submit" class="btn btn-danger">Delete</button>
-              </form>
+                <button
+                  type="button"
+                  class="btn btn-warning"
+                  onclick="window.location.href='/student/article/update?id={{_id}}'"
+                  style="min-width: 100px; margin-right: 2rem"
+                >
+                  Edit
+                </button>
+                <form
+                  action="/articles/delete"
+                  method="post"
+                  enctype="application/x-www-form-urlencoded"
+                >
+                  <input type="hidden" name="id" value="{{_id}}" />
+                  <input type="hidden" name="topic_name" value="{{topic}}" />
+                  <input
+                    type="hidden"
+                    name="faculty_name"
+                    value="{{faculty}}"
+                  />
+                  <button
+                    type="submit"
+                    class="btn btn-danger"
+                    style="min-width: 100px"
+                  >
+                    Delete
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
           {{/each}}
+          <br /><br />
           <div class="h1">Your Images</div>
+          <hr />
           {{#each user.uploadedImages}}
           <img
             src="{{cloud_url}}"
@@ -169,15 +210,6 @@
 
       <!--  /.row -->
     </div>
-    <center class="p-5">
-      <button
-        onclick="window.location.href='/student/article/create'"
-        target="_blank"
-        class="btn btn-primary text-center"
-      >
-        Create a new article
-      </button>
-    </center>
 
     <!--  /.conatiner -->
   </div>

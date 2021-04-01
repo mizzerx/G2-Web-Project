@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { ensureAuth } = require('../middlewares/ensureAuth');
 const User = require('../models/user.model');
 const Article = require('../models/article.model');
+const Topic = require('../models/topic.model');
 
 const router = Router();
 
@@ -10,7 +11,7 @@ router.get('/', async (req, res) => {
     .limit(100)
     .populate('owner')
     .lean();
-  return res.render('home', { article });
+  return res.render('home', { articles });
 });
 
 router.get('/student/profile', ensureAuth('STUDENT'), async (req, res) => {
@@ -28,10 +29,9 @@ router.get('/student/profile', ensureAuth('STUDENT'), async (req, res) => {
 router.get('/admin', ensureAuth('ADMIN'), async (req, res, next) => {
   try {
     const users = await User.find().limit(100).lean();
+    const topics = await Topic.find().limit(100).lean();
 
-    console.log(users);
-
-    return res.render('admin', { users });
+    return res.render('admin', { users, topics });
   } catch (error) {
     next(error);
   }

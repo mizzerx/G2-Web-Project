@@ -68,6 +68,8 @@
   <!-- End of page head section
 		============================================= -->
   <div style="margin-top: 20%">
+    <div class="h1" align="center">Account</div>
+    <br />
     <table
       style="width: 80%; margin: 0 auto; min-width: 150px"
       class="table table-hover"
@@ -117,10 +119,115 @@
       Creat Account
     </button>
   </center>
+  <form
+    style="margin-top: 5%"
+    class="CreateAccount"
+    method="POST"
+    action="/users/add"
+    enctype="application/x-www-form-urlencoded"
+  >
+    <table
+      style="width: 80%; margin: 0 auto; min-width: 150px"
+      class="table table-hover"
+    >
+      <thead>
+        <tr>
+          <th scope="col">Email</th>
+          <th scope="col">Username</th>
+          <th scope="col">Password</th>
+          <th scope="col">Role</th>
+          <th scope="col">Faculty</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" class="form-control" name="email" /></td>
+          <td><input type="text" class="form-control" name="username" /></td>
+          <td><input type="text" class="form-control" name="password" /></td>
+          <td>
+            <select class="form-control" name="role" aria-label="Default">
+              <option value="" selected disabled>Select Role</option>
+              <option value="ADMIN">Admin</option>
+              <option value="COORDINATOR">Condinator</option>
+              <option value="STUDENT">Student</option>
+              <option value="MANGER">Manager</option>
+            </select>
+          </td>
+          <td>
+            <select
+              class="form-control"
+              name="faculty_name"
+              aria-label="Default"
+            >
+              <option value="" selected disabled>Select Faculty</option>
+              <option value="IT">IT</option>
+              <option value="BS">Business</option>
+              <option value="DS">Design</option>
+            </select>
+          </td>
+
+          <td>
+            <button type="submit" class="btn btn-success">Create</button>
+          </td>
+        </tr>
+        <tr></tr>
+      </tbody>
+    </table>
+  </form>
+  <div style="margin-top: 20%">
+    <div class="h1" align="center">Topic</div>
+    <br />
+    <table
+      style="width: 80%; margin: 0 auto; min-width: 150px"
+      class="table table-hover"
+    >
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Topic Id</th>
+          <th scope="col">Topic Name</th>
+          <th scope="col">First Closure Date</th>
+          <th scope="col">Final Closure Date</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      {{#each topics}}
+      <tbody>
+        <tr>
+          <th scope="row">{{@index}}</th>
+          <td>{{_id}}</td>
+          <td>{{name}}</td>
+          <td>{{firstClosureDate}}</td>
+          <td>{{finalClosureDate}}</td>
+          <td>
+            <button type="button" class="btn btn-warning">Edit</button>
+            <form
+              action="/users/delete"
+              method="post"
+              enctype="application/x-www-form-urlencoded"
+            >
+              <input type="hidden" name="id" value="{{_id}}" />
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+      {{/each}}
+    </table>
+  </div>
+  <center>
+    <button
+      type="button"
+      class="btn btn-info btn-lg CreateTopicBtn"
+      style="margin-top: 5%"
+    >
+      Creat Topic
+    </button>
+  </center>
 </div>
 <form
   style="margin-top: 5%"
-  class="CreateAccount"
+  class="CreateTopic"
   method="POST"
   action="/users/add"
   enctype="application/x-www-form-urlencoded"
@@ -131,36 +238,28 @@
   >
     <thead>
       <tr>
-        <th scope="col">Email</th>
-        <th scope="col">Username</th>
-        <th scope="col">Password</th>
-        <th scope="col">Role</th>
-        <th scope="col">Faculty</th>
+        <th scope="col">Topic Name</th>
+        <th scope="col">1st Closure Date</th>
+        <th scope="col">Final Closure Date</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><input type="text" class="form-control" name="email" /></td>
-        <td><input type="text" class="form-control" name="username" /></td>
-        <td><input type="text" class="form-control" name="password" /></td>
+        <td><input type="text" class="form-control" name="topic_name" /></td>
         <td>
-          <select class="form-control" name="role" aria-label="Default">
-            <option value="" selected disabled>Select Role</option>
-            <option value="ADMIN">Admin</option>
-            <option value="COORDINATOR">Condinator</option>
-            <option value="STUDENT">Student</option>
-            <option value="MANGER">Manager</option>
-          </select>
+          <input
+            type="datetime-local"
+            class="form-control"
+            name="firstClosureDate"
+          />
         </td>
         <td>
-          <select class="form-control" name="faculty_name" aria-label="Default">
-            <option value="" selected disabled>Select Faculty</option>
-            <option value="IT">IT</option>
-            <option value="BS">Business</option>
-            <option value="DS">Design</option>
-          </select>
+          <input
+            type="datetime-local"
+            class="form-control"
+            name="finalClosureDate"
+          />
         </td>
-
         <td>
           <button type="submit" class="btn btn-success">Create</button>
         </td>
@@ -221,6 +320,9 @@
   .CreateAccount {
     display: none;
   }
+  .CreateTopic {
+    display: none;
+  }
 </style>
 <!-- boorstrap -->
 <link
@@ -265,5 +367,8 @@
 <script>
   $('.CreateAccountBtn').click(function () {
     $('.CreateAccount').toggle();
+  });
+  $('.CreateTopicBtn').click(function () {
+    $('.CreateTopic').toggle();
   });
 </script>

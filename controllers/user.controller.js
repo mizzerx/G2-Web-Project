@@ -16,7 +16,7 @@ const createUser = async (req, res, next) => {
       username,
       password,
       role,
-      faculty: faculty_name,
+      faculty: faculty_name || '',
     });
 
     await newUser.save();

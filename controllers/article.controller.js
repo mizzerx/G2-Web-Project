@@ -19,11 +19,13 @@ const createArticle = async (req, res, next) => {
 
   const uploadedImages = [...user.uploadedImages];
 
-  images.map(async (img) => {
-    const image = new Image(img);
-    await image.save();
-    uploadedImages.push(image._id);
-  });
+  if (images && images.length > 0) {
+    images.map(async (img) => {
+      const image = new Image(img);
+      await image.save();
+      uploadedImages.push(image._id);
+    });
+  }
 
   const image = await Image.findOne({ _id: uploadedImages[0] });
 

@@ -83,26 +83,57 @@
       <tbody>
         <tr>
           <th scope="row">Amount of student</th>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{{ itStudent }}</td>
+          <td>{{ bsStudent }}</td>
+          <td>{{ dsStudent }}</td>
+          <td>{{ studentTotal }}</td>
         </tr>
 
         <tr>
           <th scope="row">Amount of Condinators</th>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{{ itCoor }}</td>
+          <td>{{ bsCoor }}</td>
+          <td>{{ dsCoor }}</td>
+          <td>{{ coorTotal }}</td>
         </tr>
         <tr>
           <th scope="row">Amount of Articles</th>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{{ itArt }}</td>
+          <td>{{ bsArt }}</td>
+          <td>{{ dsArt }}</td>
+          <td>{{ artTotal }}</td>
         </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top: 20%">
+    <table
+      style="width: 80%; margin: 0 auto; min-width: 150px; max-width: 1000px"
+      class="table table-hover"
+    >
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title</th>
+          <th scope="col">Content</th>
+          <th scope="col">Status</th>
+          <th scope="col">Created Date</th>
+          <th scope="col">Comment</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each articlesData}}
+        <tr>
+          <th scope="row">{{@index}}</th>
+          <td>{{title}}</td>
+          <td>{{content}}</td>
+          <td>{{status}}</td>
+          <td>{{createdAt}}</td>
+          <td>{{#if comment}} {{comment}} {{else}} Not Yet {{/if}}</td>
+        </tr>
+        {{/each}}
       </tbody>
     </table>
   </div>

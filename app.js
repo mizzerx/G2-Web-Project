@@ -13,6 +13,7 @@ const userRouter = require('./routes/user.route');
 const facultyRouter = require('./routes/faculty.route');
 const articleRouter = require('./routes/article.route');
 const topicRouter = require('./routes/topic.route');
+const imageRouter = require('./routes/image.route');
 
 global.__dirname = path.resolve('./');
 
@@ -54,6 +55,7 @@ app.use('/users', userRouter);
 app.use('/faculties', facultyRouter);
 app.use('/articles', articleRouter);
 app.use('/topics', topicRouter);
+app.use('/images', imageRouter);
 
 /** Catch 404 Error and forward it to error handler */
 app.use((req, res, next) => {

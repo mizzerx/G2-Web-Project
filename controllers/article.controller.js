@@ -3,7 +3,6 @@ const Topic = require('../models/topic.model');
 const Article = require('../models/article.model');
 const User = require('../models/user.model');
 const Faculty = require('../models/faculty.model');
-const { uploadImagesFile } = require('./upload.controller');
 const { sendMail } = require('../helpers/nodemailer.helper');
 
 /**
@@ -15,18 +14,6 @@ const { sendMail } = require('../helpers/nodemailer.helper');
 const createArticle = async (req, res, next) => {
   const { title, content, topic_name } = req.body;
   const { user } = req.session.passport;
-
-  const images = await uploadImagesFile(req.files);
-
-  const uploadedImages = [];
-
-  if (images && images.length > 0) {
-    images.map(async (img) => {
-      const image = new Image(img);
-      await image.save();
-      uploadedImages.push(image._id);
-    });
-  }
 
   const newArticle = await new Article({
     title,
@@ -53,7 +40,6 @@ const createArticle = async (req, res, next) => {
     {
       $push: {
         uploadedArticles: newArticle._id,
-        uploadedImages: { $each: uploadedImages },
       },
     },
     { new: true }

@@ -4,8 +4,8 @@ const {
 } = require('../configs/cloudinary.config');
 
 const uploadImagesFile = async (files) => {
-  if (files.images && files.images.length > 0) {
-    const imagesPromise = files.images.map(
+  if (files && files.length > 0) {
+    const imagesPromise = files.map(
       (image) =>
         new Promise(async (resolve) => {
           try {

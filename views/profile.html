@@ -194,17 +194,49 @@
           </div>
           {{/each}}
           <br /><br />
-          <div class="h1">Your Images</div>
+          <div
+            style="
+              display: flex;
+              flex: 1;
+              flex-direction: row;
+              justify-content: space-between;
+            "
+          >
+            <p class="h1">Yours Images</p>
+            <button
+              onclick="window.location.href='/student/image/upload'"
+              target="_blank"
+              class="btn btn-success text-center"
+              style="max-height: 40px; margin: 20px 0 10px"
+            >
+              Upload new Images
+            </button>
+          </div>
           <hr />
-          {{#each user.uploadedImages}}
-          <img
-            src="{{cloud_url}}"
-            alt=""
-            width="300"
-            height="300"
-            style="margin: 2rem"
-          />
-          {{/each}}
+          <div
+            style="
+              display: flex;
+              flex-direction: row;
+              flex: 1;
+              align-items: center;
+            "
+          >
+            {{#each user.uploadedImages}}
+            <div style="margin: 1rem">
+              <img
+                src="{{cloud_url}}"
+                alt=""
+                style="
+                  margin: 2rem;
+                  max-width: 300px;
+                  max-height: 300px;
+                  flex: 1;
+                  display: flex;
+                "
+              />
+            </div>
+            {{/each}}
+          </div>
         </div>
       </div>
 

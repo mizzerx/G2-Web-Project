@@ -10,12 +10,7 @@ const { ensureAuth } = require('../middlewares/ensureAuth');
 
 const router = Router();
 
-router.post(
-  '/create',
-  ensureAuth('STUDENT'),
-  upload.fields([{ name: 'images' }, { name: 'docs' }]),
-  createArticle
-);
+router.post('/create', ensureAuth('STUDENT'), createArticle);
 
 router.post('/update', ensureAuth('STUDENT'), updateArticle);
 

@@ -3,6 +3,7 @@ const { ensureAuth } = require('../middlewares/ensureAuth');
 const User = require('../models/user.model');
 const Article = require('../models/article.model');
 const Topic = require('../models/topic.model');
+const Faculty = require('../models/faculty.model');
 
 const router = Router();
 
@@ -22,7 +23,6 @@ router.get('/student/profile', ensureAuth('STUDENT'), async (req, res) => {
     .populate('uploadedImages')
     .lean();
 
-  console.log(findUser);
   return res.render('profile', { user: findUser });
 });
 
@@ -45,8 +45,56 @@ router.get('/coordinator', ensureAuth('COORDINATOR'), async (req, res) => {
   return res.render('coordinator', { article, faculty: user.faculty });
 });
 
-router.get('/manger', ensureAuth('MANAGER'), (req, res) => {
-  return res.render('manager');
+router.get('/manager', ensureAuth('MANAGER'), async (req, res) => {
+  const users = await User.find();
+  const itStudent = users.filter(
+    (user) => user.faculty === 'IT' && user.role === 'STUDENT'
+  ).length;
+
+  const bsStudent = users.filter(
+    (user) => user.faculty === 'BS' && user.role === 'STUDENT'
+  ).length;
+
+  const dsStudent = users.filter(
+    (user) => user.faculty === 'DS' && user.role === 'STUDENT'
+  ).length;
+
+  const itCoor = users.filter(
+    (user) => user.faculty === 'IT' && user.role === 'COORDINATOR'
+  ).length;
+
+  const bsCoor = users.filter(
+    (user) => user.faculty === 'BS' && user.role === 'COORDINATOR'
+  ).length;
+
+  const dsCoor = users.filter(
+    (user) => user.faculty === 'DS' && user.role === 'COORDINATOR'
+  ).length;
+
+  const articles = await Article.find().lean();
+  const itArt = articles.filter((user) => user.faculty === 'IT').length;
+
+  const bsArt = articles.filter((user) => user.faculty === 'BS').length;
+
+  const dsArt = articles.filter((user) => user.faculty === 'DS').length;
+
+  articlesData = articles.filter((article) => article.status === 'ACCEPTED');
+
+  return res.render('manager', {
+    itStudent,
+    bsStudent,
+    dsStudent,
+    studentTotal: itStudent + bsStudent + dsStudent,
+    itCoor,
+    bsCoor,
+    dsCoor,
+    coorTotal: itCoor + bsCoor + dsCoor,
+    itArt,
+    bsArt,
+    dsArt,
+    artTotal: itArt + bsArt + dsArt,
+    articlesData,
+  });
 });
 
 router.get('/student/article/create', (req, res) => {
@@ -83,6 +131,10 @@ router.get('/topic/edit', ensureAuth('ADMIN'), async (req, res) => {
   const topic = await Topic.findOne({ _id: id }).lean();
 
   return res.render('topics/edit', { topic });
+});
+
+router.get('/student/image/upload', ensureAuth('STUDENT'), (req, res) => {
+  return res.render('images/upload');
 });
 
 module.exports = router;

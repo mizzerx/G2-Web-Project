@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const passport = require('passport');
+const { check } = require('../helpers/checkValidLogin.helper');
 
 const router = Router();
 
@@ -9,6 +10,7 @@ router.get('/login', (req, res) => {
 
 router.post(
   '/login',
+  check,
   passport.authenticate('local', {
     failureRedirect: '/auth/login?msg="Wrong username or password"',
   }),

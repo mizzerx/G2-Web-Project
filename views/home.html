@@ -71,40 +71,36 @@
     <div class="row">
       <div class="section-title text-capitalize deep-black pb75">
         <h2>Some blogs</h2>
+        <hr />
       </div>
       <!-- //title -->
       {{#each articles}}
-          <div class="col-md-4">
-            <div class="latest-blog-text-pic">
-              <div class="latest-blog-img mb10">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKRfeYlurdos8ZBKeTikvAJ1RHosXZdwPiSQ&usqp=CAU"
-                  alt="img"
-                />
-                <div class="blog-meta mt20 ul-li">
-                  <ul class="meta-list">
-                    <li><a href="#">April 16, 2017 / </a></li>
-                    <li><a href="#"> {{owner.username}} / </a></li>
-                    <li><a href="#">{{topic}}</a></li>
-                  </ul>
-                </div>
+      <div class="col-md-4">
+        <div class="latest-blog-text-pic">
+          <div class="latest-blog-img mb10">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKRfeYlurdos8ZBKeTikvAJ1RHosXZdwPiSQ&usqp=CAU"
+              alt="img"
+            />
+            <div class="blog-meta mt20 ul-li">
+              <ul class="meta-list">
+                <li><a href="#">April 16, 2017 / </a></li>
+                <li><a href="#"> {{owner.username}} / </a></li>
+                <li><a href="#">{{topic}}</a></li>
+              </ul>
+            </div>
+            <!-- //.latest-blog-img -->
+            <div class="latest-blog-text">
+              <div class="blog-head">
+                <h2>
+                  <a href="#">{{title}}</a>
+                </h2>
               </div>
-              <!-- //.latest-blog-img -->
-
-              <div class="latest-blog-text">
-                <div class="blog-head">
-                  <h2>
-                    <a href="#">{{title}}</a>
-                  </h2>
-                </div>
-                <!-- //.blog-head -->
-                <div class="blog-details mt15">
-                  <p>
-                    {{content}}
-                  </p>
-                </div>
-                <!-- //.blog-details -->
+              <!-- //.blog-head -->
+              <div class="blog-details mt15">
+                <p>{{content}}</p>
               </div>
+              <!-- //.blog-details -->
             </div>
             <!-- //.latest-blog-text-pic -->
           </div>

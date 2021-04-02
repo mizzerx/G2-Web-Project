@@ -77,4 +77,12 @@ router.get(
   }
 );
 
+router.get('/topic/edit', ensureAuth('ADMIN'), async (req, res) => {
+  const { id } = req.query;
+
+  const topic = await Topic.findOne({ _id: id }).lean();
+
+  return res.render('topics/edit', { topic });
+});
+
 module.exports = router;

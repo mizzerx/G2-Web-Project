@@ -4,8 +4,7 @@ const Article = require('../models/article.model');
 const User = require('../models/user.model');
 const Faculty = require('../models/faculty.model');
 const { uploadImagesFile } = require('./upload.controller');
-const { Types } = require('mongoose');
-const { findIndex } = require('../helpers/findIndex.helper');
+const { sendMail } = require('../helpers/nodemailer.helper');
 
 /**
  * Create Articles
@@ -59,6 +58,14 @@ const createArticle = async (req, res, next) => {
     },
     { new: true }
   );
+
+  const facultyUsers = await User.find({
+    faculty: user.faculty,
+    role: 'COORDINATOR',
+  }).lean();
+  facultyUsers.forEach(async (usr) => {
+    await sendMail(user, usr.email, newArticle);
+  });
 
   return res.redirect('/student/profile');
 };

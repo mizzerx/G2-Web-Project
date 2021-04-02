@@ -13,4 +13,16 @@ const createTopic = async (req, res, next) => {
   }
 };
 
-module.exports = { createTopic };
+const updateTopic = async (req, res, next) => {
+  const { firstClosureDate, finalClosureDate, id } = req.body;
+  const update = {};
+
+  if (firstClosureDate) update.firstClosureDate = new Date(firstClosureDate);
+  if (finalClosureDate) update.finalClosureDate = new Date(finalClosureDate);
+
+  await Topic.findOneAndUpdate({ _id: id }, { $set: update }, { new: true });
+
+  return res.redirect('/admin');
+};
+
+module.exports = { createTopic, updateTopic };

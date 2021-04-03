@@ -5,9 +5,10 @@
   "license": "MIT",
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "dev": "nodemon ./bin/www -e js"
   },
   "dependencies": {
+    "adm-zip": "^0.5.5",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.25.1",
     "dotenv": "^8.2.0",

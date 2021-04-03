@@ -4,6 +4,7 @@ const User = require('../models/user.model');
 const Article = require('../models/article.model');
 const Topic = require('../models/topic.model');
 const Faculty = require('../models/faculty.model');
+const { zipAndDownload } = require('../controllers/download.controller');
 
 const router = Router();
 
@@ -136,5 +137,7 @@ router.get('/topic/edit', ensureAuth('ADMIN'), async (req, res) => {
 router.get('/student/image/upload', ensureAuth('STUDENT'), (req, res) => {
   return res.render('images/upload');
 });
+
+router.get('/download', ensureAuth('MANAGER'), zipAndDownload);
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { upload } = require('../configs/multer.config');
 const {
   createArticle,
   removeAricle,
@@ -9,7 +10,12 @@ const { ensureAuth } = require('../middlewares/ensureAuth');
 
 const router = Router();
 
-router.post('/create', ensureAuth('STUDENT'), createArticle);
+router.post(
+  '/create',
+  upload.array('docs'),
+  ensureAuth('STUDENT'),
+  createArticle
+);
 
 router.post('/update', ensureAuth('STUDENT'), updateArticle);
 

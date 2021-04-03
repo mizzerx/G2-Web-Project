@@ -21,4 +21,19 @@ const uploadImages = async (req, res, next) => {
   return res.redirect('/student/profile');
 };
 
-module.exports = { uploadImages };
+const deleteImages = async (req, res, next) => {
+  const { id } = req.query;
+  const { _id } = req.session.passport.user;
+
+  await User.findOneAndUpdate(
+    { _id },
+    { $pull: { uploadedImages: { $in: id } } },
+    { new: true }
+  );
+
+  await Image.findOneAndRemove({ _id: id }, { new: true });
+
+  return res.redirect('/student/profile');
+};
+
+module.exports = { uploadImages, deleteImages };

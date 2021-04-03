@@ -33,7 +33,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(upload.array());
 
 /** Passport config */
 passportConfig(passport);

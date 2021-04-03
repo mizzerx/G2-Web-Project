@@ -14,6 +14,7 @@ const facultyRouter = require('./routes/faculty.route');
 const articleRouter = require('./routes/article.route');
 const topicRouter = require('./routes/topic.route');
 const imageRouter = require('./routes/image.route');
+const { upload } = require('./configs/multer.config');
 
 global.__dirname = path.resolve('./');
 
@@ -32,6 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(upload.array());
 
 /** Passport config */
 passportConfig(passport);

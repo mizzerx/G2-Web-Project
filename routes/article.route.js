@@ -1,5 +1,4 @@
 const { Router } = require('express');
-const { upload } = require('../configs/multer.config');
 const {
   createArticle,
   removeAricle,

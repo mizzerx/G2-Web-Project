@@ -4,9 +4,10 @@
   </h2>
   <form
     action="/articles/create"
-    class="p-5"
+    class="p-5 needs-validation"
     method="POST"
     enctype="multipart/form-data"
+    novalidate
   >
     <div class="mb-3">
       <label for="" class="form-label">Title</label>
@@ -16,7 +17,9 @@
         id=""
         placeholder="Type title here"
         name="title"
+        required
       />
+      <div class="invalid-feedback">Please fill title</div>
     </div>
     <div class="mb-3">
       <label for="" class="form-label">Content</label>
@@ -26,16 +29,19 @@
         rows="10"
         placeholder="Type content here"
         name="content"
+        required
       ></textarea>
+      <div class="invalid-feedback">Please fill content</div>
     </div>
     <div class="mb-3">
       <label for="" class="form-label">Please choose topic for articles</label>
-      <select class="form-select" aria-label="Topic" name="topic_name">
-        <option selected disabled>Choose topic</option>
+      <select class="form-select" aria-label="Topic" name="topic_name" required>
+        <option disabled selected value="">Choose topic</option>
         <option value="Tech">Technology</option>
         <option value="AI">AI</option>
         <option value="IoT">IoT</option>
       </select>
+      <div class="invalid-feedback">Please select Topic</div>
     </div>
     <div class="mb-3">
       <label for="" class="form-label">You can also upload pdf file here</label>
@@ -44,9 +50,48 @@
     <!-- <div id="multiple-file-preview">
       <ul id="sortable"></ul>
     </div> -->
-    <button class="btn btn-primary" type="submit">Send</button>
+    <div class="form-check mb-3">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        id="invalidCheck"
+        required
+      />
+      <label class="form-check-label" for="invalidCheck">
+        Agree to terms and conditions
+      </label>
+      <div class="invalid-feedback">You must agree before submitting.</div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
   </form>
 </div>
+
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function () {
+    'use strict';
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation');
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener(
+        'submit',
+        function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add('was-validated');
+        },
+        false
+      );
+    });
+  })();
+</script>
 
 <link
   rel="stylesheet"

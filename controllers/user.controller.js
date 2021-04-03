@@ -1,3 +1,4 @@
+const { hash } = require('bcryptjs');
 const Article = require('../models/article.model');
 const Faculty = require('../models/faculty.model');
 const Topic = require('../models/topic.model');
@@ -77,4 +78,18 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-module.exports = { createUser, deleteUser };
+const updateUser = async (req, res, next) => {
+  const { id, password } = req.body;
+
+  const hashed = await hash(password, 10);
+
+  await User.findOneAndUpdate(
+    { _id: id },
+    { $set: { password: hashed } },
+    { new: true }
+  );
+
+  return res.redirect('/admin');
+};
+
+module.exports = { createUser, deleteUser, updateUser };

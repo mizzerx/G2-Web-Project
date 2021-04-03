@@ -140,4 +140,14 @@ router.get('/student/image/upload', ensureAuth('STUDENT'), (req, res) => {
 
 router.get('/download', ensureAuth('MANAGER'), zipAndDownload);
 
+router.get('/user/update', ensureAuth('ADMIN'), async (req, res) => {
+  const { id } = req.query;
+
+  return res.render('users/update', { id });
+});
+
+router.get('/contact', (req, res) => {
+  return res.render('contact');
+});
+
 module.exports = router;

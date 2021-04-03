@@ -10,7 +10,7 @@
       <li class="has-submenu text-capitalize">
         <a href="article.html">Article</a>
       </li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="/contact">Contact</a></li>
       <li><a href="/auth/login">Logout</a></li>
     </ul>
   </nav>
@@ -98,6 +98,7 @@
               type="button"
               class="btn btn-warning"
               style="min-width: 100px"
+              onclick="window.location.href='/user/update?id={{ _id }}'"
             >
               Edit
             </button>

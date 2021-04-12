@@ -37,9 +37,12 @@
       <label for="" class="form-label">Please choose topic for articles</label>
       <select class="form-select" aria-label="Topic" name="topic_name" required>
         <option disabled selected value="">Choose topic</option>
-        <option value="Tech">Technology</option>
+        {{# each topics}}
+        <option value="{{name}}">{{name}}</option>
+        {{/each}}
+        <!-- <option value="Tech">Technology</option>
         <option value="AI">AI</option>
-        <option value="IoT">IoT</option>
+        <option value="IoT">IoT</option> -->
       </select>
       <div class="invalid-feedback">Please select Topic</div>
     </div>

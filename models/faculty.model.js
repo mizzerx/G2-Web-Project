@@ -17,6 +17,12 @@ const FacultySchema = new Schema({
       ref: 'users',
     },
   ],
+  topics: [
+    {
+      type: Types.ObjectId,
+      ref: 'topics'
+    }
+  ]
 });
 
 module.exports = model('faculties', FacultySchema);

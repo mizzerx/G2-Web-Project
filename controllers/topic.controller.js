@@ -1,10 +1,10 @@
 const Topic = require('../models/topic.model');
 
 const createTopic = async (req, res, next) => {
-  const { name, firstClosureDate, finalClosureDate } = req.body;
+  const { name, firstClosureDate, finalClosureDate, faculty } = req.body;
 
   try {
-    const newTopic = new Topic({ name, firstClosureDate, finalClosureDate });
+    const newTopic = new Topic({ name, firstClosureDate, finalClosureDate, faculty });
     const result = await newTopic.save();
 
     if (result) return res.json(result);

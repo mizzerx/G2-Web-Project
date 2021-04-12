@@ -22,6 +22,10 @@ const TopicSchema = new Schema(
         ref: 'articles',
       },
     ],
+    faculty: {
+      type: String,
+      required: true
+    }
   },
   {
     timestamps: true,

@@ -32,6 +32,8 @@ router.get('/admin', ensureAuth('ADMIN'), async (req, res, next) => {
     const users = await User.find().limit(100).lean();
     const topics = await Topic.find().limit(100).lean();
 
+    console.log(topics);
+
     return res.render('admin', { users, topics });
   } catch (error) {
     next(error);
@@ -98,8 +100,13 @@ router.get('/manager', ensureAuth('MANAGER'), async (req, res) => {
   });
 });
 
-router.get('/student/article/create', (req, res) => {
-  return res.render('articles/create');
+router.get('/student/article/create', async (req, res) => {
+  const { user } = req.session.passport;
+  const faculty = await Faculty.findOne({ name: user.faculty })
+    .populate('topics')
+    .lean();
+
+  return res.render('articles/create', { topics: faculty.topics });
 });
 
 router.get('/student/article/update', async (req, res) => {

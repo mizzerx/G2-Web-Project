@@ -150,4 +150,8 @@ router.get('/contact', (req, res) => {
   return res.render('contact');
 });
 
+router.get('/articles/detail', (req, res) => {
+  return res.render('articles/detail');
+});
+
 module.exports = router;

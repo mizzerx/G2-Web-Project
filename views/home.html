@@ -1,4 +1,3 @@
-<!-- <div id="preloader"></div> -->
 <!-- Start of nav bar
 		============================================= -->
 <nav id="poppin-nav">
@@ -8,11 +7,6 @@
     <li><a href="/auth/login">Login</a></li>
   </ul>
 </nav>
-<div id="menu-bar">
-  <span class="icon-bar top"></span>
-  <span class="icon-bar middle"></span>
-  <span class="icon-bar bottom"></span>
-</div>
 <div id="menu-overlay"></div>
 <!-- End of nav bar
 			  ============================================= -->
@@ -49,7 +43,7 @@
       <div class="banner-content">
         <div class="page-head-content">
           <div class="page-head-title text-capitalize pb40">
-            <div class=""><img src="/assets/logo.png" alt="" /></div>
+            <div class=""><img src="images/logo.png" alt="" /></div>
             <span class="descrip">
               Quang Huy - Viet Hai <br />
               Trong Hung - Quoc Binh <br />
@@ -69,59 +63,78 @@
 
 <!-- Start of portfolio section
 		============================================= -->
-<!-- Start of our service section
-		============================================= -->
-<section id="service" class="service-section pt90 pb40">
+<section id="portfolio" class="portfolio-section">
   <div class="container">
     <div class="row">
-      <div class="section-title text-capitalize deep-black pb75">
-        <h2>Some blogs</h2>
-        <hr />
-      </div>
-      <!-- //title -->
-      {{#each articles}}
-      <div class="col-md-4">
-        <div class="latest-blog-text-pic">
-          <div class="latest-blog-img mb10">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKRfeYlurdos8ZBKeTikvAJ1RHosXZdwPiSQ&usqp=CAU"
-              alt="img"
-            />
-            <div class="blog-meta mt20 ul-li">
-              <ul class="meta-list">
-                <li><a href="#">April 16, 2017 / </a></li>
-                <li><a href="#"> {{owner.username}} / </a></li>
-                <li><a href="#">{{topic}}</a></li>
-              </ul>
-            </div>
-            <!-- //.latest-blog-img -->
-            <div class="latest-blog-text">
-              <div class="blog-head">
-                <h2>
-                  <a href="#">{{title}}</a>
-                </h2>
-              </div>
-              <!-- //.blog-head -->
-              <div class="blog-details mt15">
-                <p>{{content}}</p>
-              </div>
-              <!-- //.blog-details -->
-            </div>
-            <!-- //.latest-blog-text-pic -->
+      <div class="portfolio-content">
+        <div class="portfolio-tab pb55">
+          <div id="filters" class="button-group pb45" style="margin-top: 5%">
+            <button
+              class="tab-button active"
+              data-filter="*"
+              onclick="filter('all')"
+            >
+              All
+            </button>
+            <button class="tab-button" data-filter=".IT" onclick="filter('IT')">
+              IT
+            </button>
+            <!-- chinh sua faculty o day -->
+            <button
+              class="tab-button"
+              data-filter=".Business"
+              onclick="filter('BS')"
+            >
+              Business</button
+            ><!-- chinh sua faculty o day -->
+            <button
+              class="tab-button"
+              data-filter=".Design"
+              onclick="filter('DS')"
+            >
+              Design</button
+            ><!-- chinh sua faculty o day -->
           </div>
-          <!-- //.col-md-4 -->
-          {{/each}}
+
+          <div id="filters-container">
+            {{#each articles}}
+            <div
+              class="container filter-div {{faculty}}"
+              style="max-width: 800px"
+            >
+              <h2>{{title}}</h2>
+              <br />
+              <div class="card">
+                <img
+                  alt=""
+                  style="width: 100%; height: 100%"
+                  src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg"
+                />
+                <br /><br />
+                <div class="card-body">
+                  <a class="" href="">{{owner.username}}</a>
+                  <!-- User Name -->
+                  <br />
+                  <p class="">{{content}}</p>
+                </div>
+                <br /><br />
+              </div>
+            </div>
+            <br />
+            {{/each}}
+          </div>
+
+          <!-- </div>
+							</div> -->
         </div>
-        <!-- //.row -->
+        <!--//portfolio-tab-->
       </div>
-      <!-- //.latest-blog-content -->
+      <!--//portfolio-content -->
     </div>
-    <!--  row -->
+    <!--  /.row -->
   </div>
-  <!--  container-->
+  <!--  /.conatiner -->
 </section>
-<!-- End of our service section
-		============================================= -->
 <!-- End of portfolio section
 		============================================= -->
 
@@ -201,3 +214,58 @@
 <script src="/js/waypoints.min.js"></script>
 <!-- Include script.js -->
 <script src="/js/script.js"></script>
+
+<style>
+  .filter-div {
+    display: none;
+  }
+  .show {
+    display: block;
+  }
+</style>
+
+<script>
+  filter('all');
+  function filter(condition) {
+    var x, i;
+    x = document.getElementsByClassName('filter-div');
+    if (condition == 'all') condition = '';
+    for (i = 0; i < x.length; i++) {
+      removeClass(x[i], 'show');
+      if (x[i].className.indexOf(condition) > -1) addClass(x[i], 'show');
+    }
+  }
+
+  function addClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(' ');
+    arr2 = name.split(' ');
+    for (i = 0; i < arr2.length; i++) {
+      if (arr1.indexOf(arr2[i]) == -1) {
+        element.className += ' ' + arr2[i];
+      }
+    }
+  }
+
+  function removeClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(' ');
+    arr2 = name.split(' ');
+    for (i = 0; i < arr2.length; i++) {
+      while (arr1.indexOf(arr2[i]) > -1) {
+        arr1.splice(arr1.indexOf(arr2[i]), 1);
+      }
+    }
+    element.className = arr1.join(' ');
+  }
+
+  var filtersContainer = document.getElementById('filters');
+  var filters = filtersContainer.getElementsByClassName('tab-button');
+  for (var i = 0; i < filters.length; i++) {
+    filters[i].addEventListener('click', function () {
+      var current = document.getElementsByClassName('active');
+      current[0].className = current[0].className.replace(' active', '');
+      this.className += ' active';
+    });
+  }
+</script>

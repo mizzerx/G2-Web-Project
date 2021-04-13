@@ -157,8 +157,12 @@ router.get('/contact', (req, res) => {
   return res.render('contact');
 });
 
-router.get('/articles/detail', (req, res) => {
-  return res.render('articles/detail');
+router.get('/articles/detail',async (req, res) => {
+  const { q } = req.query;
+
+  const article = await Article.findOne({_id: q}).lean();
+
+  return res.render('articles/detail', {article});
 });
 
 module.exports = router;
